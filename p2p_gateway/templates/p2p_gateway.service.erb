@@ -1,0 +1,19 @@
+[Unit]
+Description=p2p-gateway service
+
+[Service]
+Type=simple
+User=<%= scope["p2p_gateway::user"] %>
+Group=<%= scope["p2p_gateway::group"] %>
+ExecStart=<%= scope["p2p_gateway::bin_directory"] %>/gateway <%= @startparam %>
+KillMode=process
+Restart=on-failure
+KillSignal=SIGINT
+TimeoutStopSec=5
+PrivateTmp=true
+WorkingDirectory=<%= scope["p2p_gateway::working_directory"] %>
+
+EnvironmentFile=<%= scope["p2p_gateway::config_directory"] %>/p2p_gateway.env
+
+[Install]
+WantedBy=multi-user.target
